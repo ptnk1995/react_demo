@@ -41,24 +41,6 @@ class Table extends React.Component {
   };
 }
 
-class UserNew extends React.Component {
-  render() {
-    var users = this.props.users.map((user) => {
-      return (
-        <tr>
-          <td>{user.id}</td>
-          <td>{user.name}</td>
-          <td>{user.age}</td>
-        </tr>
-      )
-    })
-
-    return(
-        {users}
-    )
-  }
-}
-
 var NewUser = React.createClass({
     handleClick() {
       console.log("abcd");
