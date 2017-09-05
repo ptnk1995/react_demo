@@ -31,6 +31,8 @@ class EventApplication extends React.Component {
     this.setState({ events: events });
   }
 
+
+
   render() {
     return(
       <div className="container">
@@ -43,12 +45,12 @@ class EventApplication extends React.Component {
           <SearchForm onSearchChange={this.handleSearch.bind(this)}/>
           </div>
           <div className="col-md-8">
-            <NewForm handleAdd={this.handleAdd} />
+            <NewForm addData={this.handleAdd.bind(this)} />
           </div>
         </div>
         <div className="row">
           <div className="col-md-12">
-            <EventTable events={this.state.events} />
+            <EventTable events={this.state.events}/>
           </div>
         </div>
       </div>

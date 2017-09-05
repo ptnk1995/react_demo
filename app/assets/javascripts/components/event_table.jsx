@@ -4,13 +4,15 @@ class EventTable extends React.Component {
   }
 
   handleSearch(events) {
-    this.setState()
+    this.setState();
   }
+
   render() {
     var events = [];
     this.props.events.forEach(function(event) {
       events.push(<Event event={event} key={'event' + event.id}/>);
-    }.bind(this));
+  }.bind(this));
+
     return(
       <table className="table table-striped">
         <thead>

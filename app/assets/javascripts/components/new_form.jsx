@@ -16,25 +16,23 @@ class NewForm extends React.Component {
     description: React.PropTypes.string
   }
 
-  // handleAdd(e) {
-  //   e.preventDefault();
-  //   var self = this;
-  //   if (this.validForm()) {
-  //     $.ajax({
-  //       url: '/api/events',
-  //       method: 'POST',
-  //       data: { event: self.state },
-  //       success: function(data) {
-  //
-  //       },
-  //       error: function(xhr, status, error) {
-  //         alert('Cannot add a new record: ', error);
-  //       }
-  //     })
-  //   } else {
-  //     alert('Please fill all fields.');
-  //   }
-  // }
+  handleAdd(e) {
+    e.preventDefault();
+    var self = this;
+    self.state.name = $('#name').val();
+    $.ajax({
+      url: '/api/v1/events',
+      method: 'POST',
+      data: { event: self.state },
+      success: function(data) {
+        self.props.addData(data);
+        $('#name').val('');
+      },
+      error: function(xhr, status, error) {
+        alert('Cannot add a new record: ', error);
+      }
+    });
+  }
 
   render() {
     return(
@@ -42,12 +40,11 @@ class NewForm extends React.Component {
         <div className="form-group">
           <input type="text"
                  className="form-control"
-                 name="name"
-                 placeholder="Name"
-                 value={this.state.name}/>
+                 id="name"
+                 placeholder="Name" />
         </div>
 
-        <button type="submit" className="btn btn-primary">Add</button>
+        <button type="button" onClick={this.handleAdd.bind(this)} className="btn btn-primary">Add</button>
       </form>
     )
   }
