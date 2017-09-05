@@ -22,7 +22,7 @@ class Api::V1::EventsController < ApplicationController
   def destroy
     event = Event.find_by id: params[:id]
     if event.destroy
-      head :no_content
+      render json: event
     else
 
     end

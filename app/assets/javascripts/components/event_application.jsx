@@ -26,11 +26,17 @@ class EventApplication extends React.Component {
   }
 
   handleAdd(event) {
-    var events = this.state.events;
+    let events = this.state.events;
     events.push(event);
     this.setState({ events: events });
   }
 
+  handleDeleteRecord(event) {
+    let events = this.state.events.slice();
+    let index = events.findIndex(function(e) {return e.id == event.id});
+    events.splice(index, 1);
+    this.setState({ events: events });
+  }
 
 
   render() {
@@ -50,7 +56,7 @@ class EventApplication extends React.Component {
         </div>
         <div className="row">
           <div className="col-md-12">
-            <EventTable events={this.state.events}/>
+            <EventTable events={this.state.events} handleDeleteRecord={this.handleDeleteRecord.bind(this)} />
           </div>
         </div>
       </div>
