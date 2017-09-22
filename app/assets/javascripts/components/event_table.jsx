@@ -7,10 +7,14 @@ class EventTable extends React.Component {
     this.setState();
   }
 
+  handleDeleteRecord(event) {
+    this.props.handleDeleteRecord(event);
+  }
+
   render() {
     var events = [];
     this.props.events.forEach(function(event) {
-      events.push(<Event event={event} key={'event' + event.id}/>);
+      events.push(<Event event={event} key={'event' + event.id} handleDeleteRecord={this.handleDeleteRecord.bind(this)} />);
   }.bind(this));
 
     return(

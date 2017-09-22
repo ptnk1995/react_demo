@@ -1,6 +1,7 @@
 class Event extends React.Component {
   constructor() {
-    super();
+     super();
+     // this.handleDelete = this.handleDelete.bind(this);
   }
 
   propTypes: {
@@ -12,12 +13,13 @@ class Event extends React.Component {
 
   handleDelete(e) {
     e.preventDefault();
+    var x = this.props.handleDeleteRecord;
     let event = this.props.event;
     $.ajax({
       method: 'DELETE',
       url: '/api/v1/events/' + event.id,
       success: function(data) {
-        $("#" + event.id).hide();
+        x(data);
       },
       error: function(xhr, status, error) {
         alert('Cannot delete requested record: ', error);
