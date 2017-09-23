@@ -1,7 +1,7 @@
 class EventApplication extends React.Component {
   constructor() {
     super();
-    this.state = {events: []}
+    this.state = {events: []};
   }
 
   componentDidMount() {
@@ -38,6 +38,13 @@ class EventApplication extends React.Component {
     this.setState({ events: events });
   }
 
+  handleUpdateRecord(old_event, event) {
+    let events = this.state.events.slice();
+    let index = events.findIndex(function(e) {return e.id == old_event.id});
+    events.splice(index, 1, event);
+    this.setState({ events: events });
+  }
+
 
   render() {
     return(
@@ -56,7 +63,9 @@ class EventApplication extends React.Component {
         </div>
         <div className="row">
           <div className="col-md-12">
-            <EventTable events={this.state.events} handleDeleteRecord={this.handleDeleteRecord.bind(this)} />
+            <EventTable events={this.state.events}
+              handleDeleteRecord={this.handleDeleteRecord.bind(this)}
+              handleUpdateRecord={this.handleUpdateRecord} />
           </div>
         </div>
       </div>

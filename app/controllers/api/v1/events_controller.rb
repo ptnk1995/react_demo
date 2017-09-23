@@ -19,6 +19,15 @@ class Api::V1::EventsController < ApplicationController
     end
   end
 
+  def update
+  event = Event.find_by id: params[:id]
+   if event.update(event_params)
+     render json: event
+   else
+     render nothing: true, status: :unprocessable_entity
+   end
+ end
+
   def destroy
     event = Event.find_by id: params[:id]
     if event.destroy
