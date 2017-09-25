@@ -5,7 +5,7 @@ class Event extends React.Component {
      this.handleUpdate = this.handleUpdate.bind(this);
      this.handleToggle = this.handleToggle.bind(this);
      this.updateInput = this.updateInput.bind(this);
-    //  this.handleDelete = this.handleDelete.bind(this);
+     this.handleDelete = this.handleDelete.bind(this);
   }
 
   updateInput(name, value) {
@@ -44,9 +44,9 @@ class Event extends React.Component {
     e.preventDefault();
       var event_data = {
         name: this.state["name"],
-        description: $("#description").val(),
-        event_date: $("#event_date").val(),
-        place: $("#place").val()
+        description: this.state["description"],
+        event_date: this.state["event_date"],
+        place: this.state["place"]
       };
       const {handleUpdateRecord} = this.props;
       const {event} =  this.props;
@@ -98,7 +98,6 @@ class Event extends React.Component {
                  defaultValue={this.props.event.name}
                  className="form-control"
                  type="text"
-                  id="name_event"
                   onChange={(e) => this.updateInput(e.target.name, e.target.value)}
           />
         </td>
@@ -107,7 +106,6 @@ class Event extends React.Component {
                  defaultValue={this.props.event.event_date}
                  className="form-control"
                  type="date"
-                 id="date"
                  onChange={(e) => this.updateInput(e.target.name, e.target.value)}
           />
         </td>
@@ -116,7 +114,6 @@ class Event extends React.Component {
                  defaultValue={this.props.event.place}
                  className="form-control"
                  type="text"
-                 id="place"
                  onChange={(e) => this.updateInput(e.target.name, e.target.value)}
           />
         </td>
@@ -125,7 +122,6 @@ class Event extends React.Component {
                  defaultValue={this.props.event.description}
                  className="form-control"
                  type="text"
-                 id = "description"
                  onChange={(e) => this.updateInput(e.target.name, e.target.value)}
           />
         </td>
