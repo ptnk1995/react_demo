@@ -2,6 +2,7 @@ class EventApplication extends React.Component {
   constructor() {
     super();
     this.state = {events: []};
+    this.handleUpdateRecord = this.handleUpdateRecord.bind(this);
   }
 
   componentDidMount() {
@@ -44,7 +45,6 @@ class EventApplication extends React.Component {
     events.splice(index, 1, event);
     this.setState({ events: events });
   }
-
 
   render() {
     return(

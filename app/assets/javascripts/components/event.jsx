@@ -4,7 +4,12 @@ class Event extends React.Component {
      this.state = { edit: false };
      this.handleUpdate = this.handleUpdate.bind(this);
      this.handleToggle = this.handleToggle.bind(this);
+     this.updateInput = this.updateInput.bind(this);
     //  this.handleDelete = this.handleDelete.bind(this);
+  }
+
+  updateInput(name, value) {
+    this.setState({ [name]: value});
   }
 
   propTypes: {
@@ -38,20 +43,21 @@ class Event extends React.Component {
   handleUpdate(e) {
     e.preventDefault();
       var event_data = {
-        name: $("#name_event").val(),
+        name: this.state["name"],
         description: $("#description").val(),
         event_date: $("#event_date").val(),
         place: $("#place").val()
       };
       const {handleUpdateRecord} = this.props;
       const {event} =  this.props;
+      const update = (state) => this.setState(state);
       $.ajax({
         method: 'PUT',
         url: '/api/v1/events/' + event.id,
         data: { event: event_data },
         success: function(data) {
           handleUpdateRecord(event, data);
-          this.setState({ edit: false });
+          update({ edit: false });
         },
         error: function(xhr, status, error) {
           alert('Cannot update requested record: ', error);
@@ -87,11 +93,13 @@ class Event extends React.Component {
     return(
       <tr>
         <td>
-          <input name="name"
+          <input
+                name="name"
                  defaultValue={this.props.event.name}
                  className="form-control"
                  type="text"
                   id="name_event"
+                  onChange={(e) => this.updateInput(e.target.name, e.target.value)}
           />
         </td>
         <td>
@@ -100,6 +108,7 @@ class Event extends React.Component {
                  className="form-control"
                  type="date"
                  id="date"
+                 onChange={(e) => this.updateInput(e.target.name, e.target.value)}
           />
         </td>
         <td>
@@ -108,6 +117,7 @@ class Event extends React.Component {
                  className="form-control"
                  type="text"
                  id="place"
+                 onChange={(e) => this.updateInput(e.target.name, e.target.value)}
           />
         </td>
         <td>
@@ -115,7 +125,8 @@ class Event extends React.Component {
                  defaultValue={this.props.event.description}
                  className="form-control"
                  type="text"
-                id = "description"
+                 id = "description"
+                 onChange={(e) => this.updateInput(e.target.name, e.target.value)}
           />
         </td>
         <td>
