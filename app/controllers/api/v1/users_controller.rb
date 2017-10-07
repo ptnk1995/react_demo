@@ -1,25 +1,45 @@
-class Api::V1::UsersController < Api::V1::BaseController
-    def index
-        respond_with User.all
-    end
+class Api::V1::UsersController < ApplicationController
+  before_action :load_user, only: [:update, :destroy]
 
-    def create
-      binding.pry
-        respond_with :api, :v1, User.create(user_params)
+  def index
+    @users = if params[:data].blank?
+      User.all
+    else
+      User.search_by User.new(params[:data].as_json)
     end
+    render json: @users
+  end
 
-    def destroy
-        respond_with User.destroy(params[:id])
+  def create
+    @user = User.new user_params
+    if @user.save
+      render json: @user
+    else
+      render nothing: true
     end
+  end
 
-    def update
-        user = User.find(params["id"])
-        user.update_attributes(user_params)
-        respond_with user, json: user
-    end
+  def update
+   if @user.update_attributes(user_params)
+     render json: @user
+   else
+     render nothing: true
+   end
+ end
 
-    private
-    def user_params
-        params.require(:user).permit(:id, :name, :age)
+  def destroy
+    if @user.destroy
+    else
+      render nothing: true
     end
+  end
+
+  private
+  def user_params
+    params.require(:user).permit(:id, :name, :age, :email, :address)
+  end
+
+  def load_user
+    @user = User.find_by id: params[:id]
+  end
 end
