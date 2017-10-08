@@ -121,6 +121,9 @@ class UserTemplate extends React.Component {
           </div>
           <br />
           <div className="col-md-12">
+            <h3>Search</h3>
+          </div>
+          <div className="col-md-12">
             <div className="panel panel-default">
               <div className="panel-body">
                 <SearchUser handleSearch={this.handleSearch.bind(this)} />
@@ -128,9 +131,6 @@ class UserTemplate extends React.Component {
             </div>
           </div>
           <br />
-          <div className="col-md-12">
-            <h3>List User</h3>
-          </div>
           <div className="col-md-12">
             <UserTable users={this.state.users}
               handleDeleteRecord={this.handleDeleteRecord.bind(this)}
